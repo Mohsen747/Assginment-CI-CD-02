@@ -20,6 +20,6 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /home/ubuntu
+          cd /home/ubuntu/Assginment-CI-CD-02
           git pull origin main  # make sure to pull from the correct branch
           # Add any other deployment steps or scripts here
