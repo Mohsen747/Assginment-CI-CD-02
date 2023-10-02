@@ -42,12 +42,12 @@
         <div class="collapse navbar-collapse px-lg-3" id="navbarCollapse">
             <div class="navbar-nav m-auto py-0">
                 <a href="#home" class="nav-item nav-link active">Home</a>
-                <a href="#about" class="nav-item nav-link">AboutZ</a>
+                <a href="#about" class="nav-item nav-link">About</a>
                 <a href="#skill" class="nav-item nav-link">Skill</a>
                 <a href="#service" class="nav-item nav-link">Service</a>
                 <a href="#portfolio" class="nav-item nav-link">Portfolio</a>
                 <a href="#testimonial" class="nav-item nav-link">Review</a>
-                <a href="#contact" class="nav-item nav-link">Contact</a>
+                <a href="#contact" class="nav-item nav-link">APIs</a>
             </div>
             <a href="" class="btn btn-outline-primary d-none d-lg-block">Hire Me</a>
         </div>
@@ -470,7 +470,210 @@
     </div>
     <!-- Testimonial End -->
     
-    
+    <!-- WeatherApp Api -->
+<style>
+    /* Style for weather-related words */
+    .weather {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center; 
+        background-color: #78aeeb;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .weather h1.temp {
+        font-size: 26px; 
+        color: #333; 
+    }
+
+    .weather h2.city {
+        font-size: 26px; 
+        color: #555; 
+    }
+
+    .details p {
+        font-size: 26px; 
+        color: #000000; 
+    }
+
+    
+</style>
+
+<div class="container-fluid py-5" id="contact">
+    <div class="container">
+        <div class="position-relative d-flex align-items-center justify-content-center">
+            <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Weather</h1>
+            <h1 class="position-absolute text-uppercase text-primary">Weather API</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form text-center">
+                    <div class="card">
+                        <div class="search">
+                            <input type="text" placeholder="Enter City Name" spellcheck="false"/> 
+                            <button><img src="images/search.png" alt="search" /></button>
+                        </div>
+                        <div class="weathererror">
+                            <p>Invalid City Name</p>
+                        </div>
+                        <div class="weather">
+                            <img src="images/rain.png" class="weather-icon">
+                            <h1 class="temp">22°c</h1>
+                            <h2 class="city">New York</h2>
+                            <div class="details">
+                                <img src="images/humidity.png">
+                                <div>
+                                    <p class="humidity">50%</p>
+                                    <p>Humidity</p>
+                                </div>
+                                <img src="images/wind.png">
+                                <div>
+                                    <p class="wind">15 km/h</p>
+                                    <p>Wind Speed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- RandomJoke API Start -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Display</title>
+
+    <style>
+        /* Style for the joke section */
+        .joke {
+            display: flex;
+            flex-direction: column; /* Display elements in a column */
+            align-items: center; /* Center items horizontally */
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px; /* Add some space between the sections */
+        }
+
+        .joke p {
+            font-size: 18px; /* Font size for the joke text */
+            color: #333; /* Joke text color */
+            text-align: center; /* Center-align the joke text */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Joke Section -->
+    <div class="joke">
+        <h1>Random Joke</h1>
+        <p id="joke">Click the button to load a joke</p>
+        <button onclick="getJoke()">Get Joke</button>
+    </div>
+
+    <!-- Embed JavaScript directly -->
+    <script>
+        async function getJoke() {
+            try {
+                const url = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const jokeData = await response.json();
+                let joke = '';
+                if (jokeData.joke) {
+                    joke = jokeData.joke;
+                } else {
+                    joke = `${jokeData.setup} ... ${jokeData.delivery}`;
+                }
+                document.getElementById('joke').textContent = joke;
+            } catch (error) {
+                console.error('Fetching joke failed', error);
+                document.getElementById('joke').textContent = 'Failed to load joke. Please try again!';
+            }
+        }
+    </script>
+</body>
+
+</html>
+<!-- RandomJoke API End -->
+
+    
+    <!-- Template Javascript -->
+    <script src="./main.js"></script>
+    <script>
+       
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?appid=5bb6451f1eeb144a6b1948b3b9a2a3ef&units=metric&q=";
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+        const weatherIcon = document.querySelector(".weather-icon");
+        async function checkWeather(city) {
+              const response = await fetch(apiUrl +city+ `&appid=${"5bb6451f1eeb144a6b1948b3b9a2a3ef"}`);
+              var data = await response.json();
+              if(response.status == 404){
+                document.querySelector(".weathererror").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+}else{
+    console.log(data);
+               document.querySelector(".city").innerHTML = data.name;
+               document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+                if(data.weather[0].main == "Clouds"){
+                   weatherIcon.src = "images/clouds.png";
+                }
+                   else if(data.weather[0].main == "Clear"){
+                   weatherIcon.src = "images/clear.png";
+                }
+                   else if(data.weather [0].main == "Rain"){
+                   weatherIcon.src = "images/rain.png";
+                   }
+                   else if(data.weather [0].main == "Drizzle"){
+                   weatherIcon.src = "images/drizzle.png";
+                   }
+                   else if(data.weather[0].main == "Mist"){
+                   weatherIcon.src = "images/mist.png";
+                   }
+                   document.querySelector(".weather").style.display = "block";
+                   document.querySelector(".weathererror").style.display = "none";
+                 }
+               
+            }
+                    searchBtn.addEventListener("click", ()=>{
+                    checkWeather (searchBox.value);
+                    })
+             </script>
+
+            <script>
+                 const requestUrl =
+            'https://api.unsplash.com/search/photos?query=london&client_id=5bb6451f1eeb144a6b1948b3b9a2a3ef';
+        const getImagesButton = document.querySelector('.getImagesButton');
+        const imageToDisplay = document.querySelector('.imageToDisplay');
+        getImagesButton.addEventListener('click', async () => {
+            let randomImage = await getNewImage();
+            imageToDisplay.src = randomImage;
+        });
+
+        async function getNewImage() {
+            let randomNumber = Math.floor(Math.random() * 10);
+            return fetch(requestUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                let allImages = data.results[randomNumber];
+                return allImages.urls.regular;
+            });
+        }
+    </script>
     <!-- Contact End -->
 
 
